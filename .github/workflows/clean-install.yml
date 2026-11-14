@@ -1,0 +1,27 @@
+name: Clean install
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  clean-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_sqlite
+          tools: composer
+      - run: composer install --no-interaction --prefer-dist
+      - run: |
+          cp .env.example .env
+          touch database/database.sqlite
+          php artisan key:generate
+          php artisan migrate --force
+          php -r '$db = new PDO("sqlite:database/database.sqlite"); foreach (["users", "support_tickets", "support_messages"] as $table) { if ((int) $db->query("SELECT COUNT(*) FROM ".$table)->fetchColumn() !== 0) exit(1); }'
+      - run: |
+          php artisan serve --host=127.0.0.1 --port=8090 > /tmp/support-desk.log 2>&1 &
+          curl --fail --retry 10 --retry-connrefused http://127.0.0.1:8090/support
+          curl --fail http://127.0.0.1:8090/register

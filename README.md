@@ -1,5 +1,9 @@
 # Support Desk
 
+[![Clean install](https://github.com/imexfil/support-system/actions/workflows/clean-install.yml/badge.svg)](https://github.com/imexfil/support-system/actions/workflows/clean-install.yml) [![MIT License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+[Download the latest release](https://github.com/imexfil/support-system/releases/latest)
+
 [English](#english) · [Русский](#русский)
 
 ## English
@@ -13,7 +17,7 @@ Support Desk is a standalone Laravel demo for private customer support. Customer
 
 ### Run locally
 
-Requires PHP 8.4+, Composer, and the PDO SQLite extension. Run these commands in a fresh checkout:
+Requires PHP 8.4+, Composer, and the PDO SQLite extension. This app uses Blade and ships with its CSS and JavaScript, so no Node.js build is needed. Run these commands in a fresh checkout:
 
 ```sh
 git clone https://github.com/imexfil/support-system.git
@@ -58,3 +62,11 @@ Support Desk — самостоятельный пример службы под
 4. Зарегистрируй отдельный аккаунт сотрудника. Войдя как администратор, открой **Team**, найди его по имени или email и нажми **Assign Support role**. Сотрудник сможет открыть **Support inbox** прямо после входа.
 
 Для демо создаётся отдельная SQLite-база. Вместо фотографий используются инициалы. Аккаунты и пароли создаются локально. Интерфейс демо на английском, отправка почты и настройки для продакшена в пример не входят.
+
+### Первый запуск из архива
+
+Распакуй архив релиза, открой терминал в папке проекта и начни с `composer install`. При первом запуске миграции создают пустые таблицы пользователей, обращений и сообщений. Если хочешь посмотреть только клиентский интерфейс, можно сразу зарегистрироваться и пропустить создание администратора.
+
+### License / Лицензия
+
+Project source is distributed under the [MIT License](LICENSE). The bundled Inter font retains its [SIL Open Font License](public/assets/Inter-LICENSE.txt).
